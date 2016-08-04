@@ -1,0 +1,6 @@
+<?php $playlist = $this->playlist; ?>
+
+<?php if(!empty($playlist)): ?>
+    <a class="btn btn-xs btn-primary" href="<?php echo $playlist['link'] ?>"><i class="fa fa-spotify"></i> <?php echo $this->translate('Listen our playlist')?></a>
+<?php endif; ?>
+

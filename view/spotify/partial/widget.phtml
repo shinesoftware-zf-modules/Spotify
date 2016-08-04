@@ -1,0 +1,37 @@
+<?php $playlists = $this->playlists; ?>
+
+<?php if(!empty($playlists)): ?>
+    
+    <h3><i class="fa fa-spotify"></i> <?php echo $this->translate('Our Spotify playlist tracks')?> <small><?php echo $this->translate('Follow us on Spotify') ?></small></h3>
+    
+    <?php foreach($playlists as $data): ?>
+    
+        <?php $scripts[] = "
+            $( document ).ready(function() {
+                $.ajax('/spotify/ajax/playlistracks/" . $data['user'] . "/".$data['playlist']."',{
+                    type: 'POST',
+                    dataType: 'json',
+            	    beforeSend: function() {
+            			$('#loading').html('Please wait ... ');
+            	    },
+            	    error: function() {
+            	    	$('#loading').html('Sorry, there was an error.');
+            	    },
+            	    success: function(data) {
+            	    	$('#title').append('<a target=\'_blank\' href=\''+data.link+'\'>' + data.title + '</a>');
+            	    	$('#tracks').append(data.list);
+            	    	$('#loading').html('');
+            	    	$('.readmore').readmore({speed: 175,maxHeight: 200, lessLink: '<a class=\"btn btn-xs btn-danger\" href=\"#\"><i class=\"fa fa-spotify\"></i> ".$this->translate('Hide the playlist tracks')."</a>', moreLink: '<a class=\"btn btn-xs btn-primary\" href=\"#\"><i class=\"fa fa-spotify\"></i> ".$this->translate('Show all the playlist tracks now!')."</a>'});
+            	    }
+                });
+            });"; 
+        ?>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if(!empty($scripts)): ?>
+    <span id="loading" class="text-muted"></span>
+    <div id="tracks" class="readmore"></div>
+    <hr/>
+    <?php $this->inlineScript()->appendScript(implode("\n", $scripts));?>
+<?php endif;?>

@@ -1,0 +1,27 @@
+<?php $script = "
+    $( document ).ready(function() {
+        $.ajax('/spotify/ajax/tracks/" . $this->userid . "',{
+            type: 'POST',
+            dataType: 'json',
+    	    beforeSend: function() {
+    			$('#tracks').html('Please wait ... ');
+    	    },
+    	    error: function() {
+    	    	$('#tracks').html('Sorry, there was an error.');
+    	    },
+    	    success: function(data) {
+    	        if(data.title){
+        	    	$('#title').append('<a target=\'_blank\' href=\''+data.link+'\'>' + data.title + '</a>');
+        	    }
+        	    $('#tracks').html(data.list);
+    	    }
+        });
+    });"; 
+?>
+
+<?php if(!empty($script)): ?>
+    <h3 id="title"><i class="fa fa-spotify"></i> <?php echo $this->translate('Our preferite playlist')?> </h3>
+    <div id="tracks"></div>
+    <hr/>
+    <?php $this->inlineScript()->appendScript($script);?>
+<?php endif; ?>

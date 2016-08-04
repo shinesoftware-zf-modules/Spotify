@@ -1,0 +1,17 @@
+<?php $this->headTitle()->prepend($this->translate('My Spotify Profile')); ?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <h2><i class="fa fa-spotify"></i> Spotify Sync <small><?php echo $this->translate('Setup your Spotify profile')?></small></h2>
+                <hr/>
+                <p><?php echo $this->translate('Here you can set the Spotify profile to share your preferite music playlist in this website. When you set your spotify here, the music will be published in your website profile.')?></p>
+                <blockquote><?php echo $this->translate('Click on the Spotify Login button. You will redirect at the spotify website where you have to accept the permissions.')?></blockquote>
+                <p>
+                    <a class="btn btn-primary" href="/spotify/auth"><i class="fa fa-spotify"></i> <?php echo $this->translate('Spotify Login')?></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

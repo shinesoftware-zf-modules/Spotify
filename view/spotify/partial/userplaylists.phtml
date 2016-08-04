@@ -1,0 +1,24 @@
+<?php $script = "
+    $( document ).ready(function() {
+        $.ajax('/spotify/ajax/playlists/" . $this->userid . "',{
+            type: 'POST',
+    	    beforeSend: function() {
+    			$('#playlists').html('Please wait ... ');
+    	    },
+    	    error: function() {
+    	    	$('#playlists').html('Sorry, there was an error.');
+    	    },
+    	    success: function(data) {
+    	    	$('#playlists').html(data);
+    	    }
+        });
+    });"; 
+?>
+
+<?php if(!empty($script)): ?>
+    <h3><i class="fa fa-spotify"></i> <?php echo $this->translate('Our music')?> <small><?php echo $this->translate('Follow us on Spotify') ?></small></h3>
+    <div id="playlists"></div>
+    <hr/>
+
+    <?php $this->inlineScript()->appendScript($script);?>
+<?php endif; ?>
